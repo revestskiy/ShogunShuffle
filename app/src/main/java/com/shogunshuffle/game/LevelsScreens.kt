@@ -4,12 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,20 +17,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun LevelsScreen(
-    onMenu: () -> Unit
+    onMenu: () -> Unit,
+    onLevel: (Int) -> Unit
 ) {
     val levelButtons = listOf(
-        R.drawable.lvl1, R.drawable.lvl2, R.drawable.lvl3,
-        R.drawable.lvl4, R.drawable.lvl5, R.drawable.lvl6,
-        R.drawable.lvl7, R.drawable.lvl8, R.drawable.lvl9,
-        R.drawable.lvl10, R.drawable.lvl11, R.drawable.lvl12,
-        R.drawable.lvl13, R.drawable.lvl14, R.drawable.lvl15,
-        R.drawable.lvl16, R.drawable.lvl17, R.drawable.lvl18
+        R.drawable.lvl1 to 1, R.drawable.lvl2 to 2, R.drawable.lvl3 to 3,
+        R.drawable.lvl4 to 4, R.drawable.lvl5 to 5, R.drawable.lvl6 to 6,
+        R.drawable.lvl7 to 7, R.drawable.lvl8 to 8, R.drawable.lvl9 to 9,
+        R.drawable.lvl10 to 10, R.drawable.lvl11 to 11, R.drawable.lvl12 to 12,
+        R.drawable.lvl13 to 13, R.drawable.lvl14 to 14, R.drawable.lvl15 to 15,
+        R.drawable.lvl16 to 16, R.drawable.lvl17 to 17, R.drawable.lvl18 to 18,
     )
 
     Box(
@@ -81,10 +78,14 @@ fun LevelsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    LevelButton(levelResId = levelPair[0])
+                    LevelButton(levelResId = levelPair[0].first) {
+                        onLevel(levelPair[0].second)
+                    }
 
                     if (levelPair.size > 1) {
-                        LevelButton(levelResId = levelPair[1])
+                        LevelButton(levelResId = levelPair[1].first) {
+                            onLevel(levelPair[1].second)
+                        }
                     }
                 }
             }
@@ -93,14 +94,14 @@ fun LevelsScreen(
 }
 
 @Composable
-fun LevelButton(levelResId: Int) {
+fun LevelButton(levelResId: Int, onClick: () -> Unit = {}) {
     Image(
         painter = painterResource(id = levelResId),
         contentDescription = "Level Button",
         modifier = Modifier
             .size(150.dp, 60.dp) // Увеличенный размер для более вытянутого вида
             .clickable {
-                // Действие при нажатии
+                onClick()
             }
     )
 }
