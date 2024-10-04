@@ -20,12 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shogunshuffle.game.ui.theme.nujnoefont
-
 
 
 @Composable
@@ -103,7 +102,8 @@ fun OutlinedText(
     fontSize: TextUnit,
     textColor: Color,
     outlineColor: Color,
-    fontFamily: FontFamily
+    fontFamily: FontFamily,
+    textAlign: TextAlign = TextAlign.Start
 ) {
     // Смещения для создания контура
     val outlineOffset = 2.dp
@@ -117,28 +117,32 @@ fun OutlinedText(
             fontSize = fontSize,
             fontFamily = fontFamily,
             color = outlineColor,
-            modifier = Modifier.offset(x = outlineOffset, y = outlineOffset)
+            modifier = Modifier.offset(x = outlineOffset, y = outlineOffset),
+            textAlign = textAlign
         )
         Text(
             text = text,
             fontSize = fontSize,
             fontFamily = fontFamily,
             color = outlineColor,
-            modifier = Modifier.offset(x = -outlineOffset, y = outlineOffset)
+            modifier = Modifier.offset(x = -outlineOffset, y = outlineOffset),
+            textAlign = textAlign
         )
         Text(
             text = text,
             fontSize = fontSize,
             fontFamily = fontFamily,
             color = outlineColor,
-            modifier = Modifier.offset(x = outlineOffset, y = -outlineOffset)
+            modifier = Modifier.offset(x = outlineOffset, y = -outlineOffset),
+            textAlign = textAlign
         )
         Text(
             text = text,
             fontSize = fontSize,
             fontFamily = fontFamily,
             color = outlineColor,
-            modifier = Modifier.offset(x = -outlineOffset, y = -outlineOffset)
+            modifier = Modifier.offset(x = -outlineOffset, y = -outlineOffset),
+            textAlign = textAlign
         )
 
         // Основной текст поверх контура
@@ -146,7 +150,8 @@ fun OutlinedText(
             text = text,
             fontSize = fontSize,
             fontFamily = fontFamily,
-            color = textColor
+            color = textColor,
+            textAlign = textAlign
         )
     }
 }
