@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -78,13 +79,23 @@ fun LevelsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    LevelButton(levelResId = levelPair[0].first) {
-                        onLevel(levelPair[0].second)
+                    LevelButton(
+                        levelResId = levelPair[0].first,
+                        modifier = Modifier.alpha(if (Prefs.level > levelPair[0].second) 0.5f else 1f)
+                    ) {
+                        if (Prefs.level <= levelPair[0].second) {
+                            onLevel(levelPair[0].second)
+                        }
                     }
 
                     if (levelPair.size > 1) {
-                        LevelButton(levelResId = levelPair[1].first) {
-                            onLevel(levelPair[1].second)
+                        LevelButton(
+                            levelResId = levelPair[1].first,
+                            modifier = Modifier.alpha(if (Prefs.level > levelPair[0].second) 0.5f else 1f)
+                        ) {
+                            if (Prefs.level <= levelPair[0].second) {
+                                onLevel(levelPair[1].second)
+                            }
                         }
                     }
                 }
@@ -94,11 +105,11 @@ fun LevelsScreen(
 }
 
 @Composable
-fun LevelButton(levelResId: Int, onClick: () -> Unit = {}) {
+fun LevelButton(modifier: Modifier = Modifier, levelResId: Int, onClick: () -> Unit = {}) {
     Image(
         painter = painterResource(id = levelResId),
         contentDescription = "Level Button",
-        modifier = Modifier
+        modifier = modifier
             .size(150.dp, 60.dp) // Увеличенный размер для более вытянутого вида
             .clickable {
                 onClick()

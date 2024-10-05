@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
@@ -98,7 +99,7 @@ fun MenuScreen(
 
 @Composable
 fun OutlinedText(
-    text: String,
+    text: CharSequence,
     fontSize: TextUnit,
     textColor: Color,
     outlineColor: Color,
@@ -112,46 +113,121 @@ fun OutlinedText(
         contentAlignment = Alignment.Center
     ) {
         // Текст с смещениями для имитации контура
-        Text(
-            text = text,
-            fontSize = fontSize,
-            fontFamily = fontFamily,
-            color = outlineColor,
-            modifier = Modifier.offset(x = outlineOffset, y = outlineOffset),
-            textAlign = textAlign
-        )
-        Text(
-            text = text,
-            fontSize = fontSize,
-            fontFamily = fontFamily,
-            color = outlineColor,
-            modifier = Modifier.offset(x = -outlineOffset, y = outlineOffset),
-            textAlign = textAlign
-        )
-        Text(
-            text = text,
-            fontSize = fontSize,
-            fontFamily = fontFamily,
-            color = outlineColor,
-            modifier = Modifier.offset(x = outlineOffset, y = -outlineOffset),
-            textAlign = textAlign
-        )
-        Text(
-            text = text,
-            fontSize = fontSize,
-            fontFamily = fontFamily,
-            color = outlineColor,
-            modifier = Modifier.offset(x = -outlineOffset, y = -outlineOffset),
-            textAlign = textAlign
-        )
+        when (text) {
+            is AnnotatedString -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = outlineOffset, y = outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+
+            is String -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = outlineOffset, y = outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+        }
+        when (text) {
+            is AnnotatedString -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = -outlineOffset, y = outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+
+            is String -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = -outlineOffset, y = outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+        }
+
+        when (text) {
+            is AnnotatedString -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = outlineOffset, y = -outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+
+            is String -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = outlineOffset, y = -outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+        }
+        when (text) {
+            is AnnotatedString -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = -outlineOffset, y = -outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+
+            is String -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = outlineColor,
+                    modifier = Modifier.offset(x = -outlineOffset, y = -outlineOffset),
+                    textAlign = textAlign
+                )
+            }
+        }
 
         // Основной текст поверх контура
-        Text(
-            text = text,
-            fontSize = fontSize,
-            fontFamily = fontFamily,
-            color = textColor,
-            textAlign = textAlign
-        )
+        when (text) {
+            is AnnotatedString -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = textColor,
+                    textAlign = textAlign
+                )
+            }
+
+            is String -> {
+                Text(
+                    text = text,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = textColor,
+                    textAlign = textAlign
+                )
+            }
+        }
     }
 }

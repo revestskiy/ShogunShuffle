@@ -1,6 +1,12 @@
 package com.shogunshuffle.game
 
 object Prefs {
+    var level: Int
+        get() = sharedPrefs.getInt("level", 1)
+        set(value) = sharedPrefs.edit().putInt("level", value).apply()
+
+    fun passLevel() = sharedPrefs.edit().putInt("level", level + 1).apply()
+
     private lateinit var sharedPrefs: android.content.SharedPreferences
 
     fun init(context: android.content.Context) {

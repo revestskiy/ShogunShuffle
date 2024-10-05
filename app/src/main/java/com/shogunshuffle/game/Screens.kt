@@ -7,4 +7,5 @@ object Screens {
     const val Menu = "MENU"
     const val Exit = "EXIT"
     const val Game = "GAME"
+    const val Result = "RESULT"
 }

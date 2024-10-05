@@ -1,6 +1,9 @@
 package com.shogunshuffle.game
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,6 +12,8 @@ import androidx.navigation.navArgument
 
 @Composable
 fun NavigationScreen(navHostController: NavHostController){
+    val gameViewModel: GameViewModel = viewModel()
+    val result by gameViewModel.result.collectAsState()
     NavHost(navController = navHostController,
         startDestination = Screens.Loading) {
         composable(Screens.Loading){
@@ -28,16 +33,19 @@ fun NavigationScreen(navHostController: NavHostController){
                     navHostController.navigate(Screens.Levels) {
                         launchSingleTop = true
                     }
+                    SoundManager.playSound()
                 },
                 onOptions = {
                     navHostController.navigate(Screens.Options) {
                         launchSingleTop = true
                     }
+                    SoundManager.playSound()
                 },
                 onExit = {
                     navHostController.navigate(Screens.Exit) {
                         launchSingleTop = true
                     }
+                    SoundManager.playSound()
                 }
             )
         }
@@ -45,6 +53,7 @@ fun NavigationScreen(navHostController: NavHostController){
             OptionsScreen(
                 onBack = {
                     navHostController.popBackStack()
+                    SoundManager.playSound()
                 }
             )
         }
@@ -52,6 +61,7 @@ fun NavigationScreen(navHostController: NavHostController){
             LevelsScreen(
                 onMenu = {
                     navHostController.popBackStack()
+                    SoundManager.playSound()
                 },
                 onLevel = { level ->
                     navHostController.navigate(Screens.Game + "/${level}") {
@@ -64,6 +74,7 @@ fun NavigationScreen(navHostController: NavHostController){
             ExitScreen(
                 onBack = {
                     navHostController.popBackStack()
+                    SoundManager.playSound()
                 }
             )
         }
@@ -76,6 +87,36 @@ fun NavigationScreen(navHostController: NavHostController){
                 level = level,
                 onBack = {
                     navHostController.popBackStack()
+                    SoundManager.playSound()
+                },
+                onResult = {
+                    navHostController.navigate(Screens.Result) {
+                        launchSingleTop = true
+                        popUpTo(Screens.Game + "/${level}") { inclusive = true }
+                    }
+                    SoundManager.playSound()
+                },
+                viewModel = gameViewModel
+            )
+        }
+
+        composable(Screens.Result){
+            ResultScreen(
+                result = result,
+                onBack = {
+                    navHostController.popBackStack()
+                    SoundManager.playSound()
+                },
+                onNextOrTryAgain = {
+                    with(navHostController) {
+                        if (result.isWin) {
+                            navigate(Screens.Game + "/${result.lvl + 1}")
+                        }
+                        else {
+                            navigate(Screens.Game + "/${result.lvl}")
+                        }
+                        SoundManager.playSound()
+                    }
                 }
             )
         }

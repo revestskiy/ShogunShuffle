@@ -129,9 +129,10 @@ fun SliderItem(
         Text(
             text = title,
             fontFamily = nujnoefont,
-            fontSize = 18.sp,
+            fontSize = 16.sp,
             color = Color.White,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            maxLines = 1
         )
 
         // Ползунок для изменения громкости
